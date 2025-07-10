@@ -12,7 +12,7 @@ namespace ReservationChambre.Classes
     {
         public static ClsDictionnaire Instance = null;
 
-        public ClsDictionnaire GetInstance()
+        public static ClsDictionnaire GetInstance()
         {
             if (Instance == null)
                 Instance = new ClsDictionnaire();
@@ -36,6 +36,7 @@ namespace ReservationChambre.Classes
                 if (connection.State == System.Data.ConnectionState.Closed)
                 {
                     connection.Open();
+
                 }
             }
             catch (Exception ex)

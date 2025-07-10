@@ -11,7 +11,8 @@ namespace ReservationChambre
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+            ClsDictionnaire.GetInstance().OpenConnection();
+            MessageBox.Show("Connexion réussie !", "Succès", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }
