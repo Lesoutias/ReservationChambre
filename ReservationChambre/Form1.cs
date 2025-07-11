@@ -1,4 +1,5 @@
 using ReservationChambre.Classes;
+using ReservationChambre.Formulaire;
 
 namespace ReservationChambre
 {
@@ -11,8 +12,19 @@ namespace ReservationChambre
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            ClsDictionnaire.GetInstance().OpenConnection();
-            MessageBox.Show("Connexion réussie !", "Succès", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            FrmCategorie frmCategorie = new FrmCategorie();
+            frmCategorie.Show();
+        }
+
+        private void btnClient_Click(object sender, EventArgs e)
+        {
+            FrmClient frmClient = new FrmClient();
+            frmClient.Show();
         }
     }
 }

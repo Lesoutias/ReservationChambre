@@ -28,16 +28,9 @@ namespace ReservationChambre.Classes
 
         public void OpenConnection()
         {
-            try { 
-                if (connection == null)
-                {
-                    connection = new SqlConnection(ClsConnection.ConnectionString);
-                }
-                if (connection.State == System.Data.ConnectionState.Closed)
-                {
-                    connection.Open();
-
-                }
+            try 
+            {  
+                connection = new SqlConnection(ClsConnection.ConnectionString);
             }
             catch (Exception ex)
             {
@@ -46,22 +39,50 @@ namespace ReservationChambre.Classes
         }
         public void SaveClient(ClsClient client)
         {
-            OpenConnection();
-            connection.Open();
-            command = new SqlCommand("Exec SaveClient @id,@noms,@adresse,@contact", connection);
-            command.Parameters.AddWithValue("@id", client.Id);
-            command.Parameters.AddWithValue("@noms", client.Noms);
-            command.Parameters.AddWithValue("@adresse", client.Adresse);
-            command.Parameters.AddWithValue("@contact", client.Contact);
-            command.ExecuteNonQuery();
-            command.Dispose();
+            try
+            {
+                OpenConnection();
+                connection.Open();
+                command = new SqlCommand("Exec SaveClient @id,@noms,@adresse,@contact,@refCategorie", connection);
+                command.Parameters.AddWithValue("@id", client.Id);
+                command.Parameters.AddWithValue("@noms", client.Noms);
+                command.Parameters.AddWithValue("@adresse", client.Adresse);
+                command.Parameters.AddWithValue("@contact", client.Contact);
+                command.Parameters.AddWithValue("@refCategorie", client.RefCategorie);
+                command.ExecuteNonQuery();
+                command.Dispose();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Insertion Echoue");
+            }
+            
         }
 
-        public void deleteData(string nomtable, int champ_id, int id)
+        public void SaveCategorie(ClsCategorisation cat)
+        {
+            try
+            {
+                OpenConnection();
+                connection.Open();
+                command = new SqlCommand("Exec SaveCategorisation @id,@designationCategorisation", connection);
+                command.Parameters.AddWithValue("@id", cat.Id);
+                command.Parameters.AddWithValue("@designationCategorisation", cat.DesignationCat);
+                command.ExecuteNonQuery();
+                command.Dispose();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        public void deleteData(string nomtable, string champ_id, int id)
         {
             OpenConnection();
             connection.Open();
-            command = new SqlCommand("DELETE FROM" + nomtable + "where" + champ_id + "@id", connection);
+            command = new SqlCommand("DELETE FROM " + nomtable + " where " + champ_id + " = @id", connection);
             command.Parameters.AddWithValue("@id", id);
             command.ExecuteNonQuery();
             command.Dispose();

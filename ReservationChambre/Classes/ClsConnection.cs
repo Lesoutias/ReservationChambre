@@ -8,6 +8,6 @@ namespace ReservationChambre.Classes
 {
     internal class ClsConnection
     {
-        public static string ConnectionString = "Data Source = METRE\\SQLEXPRESS; Initial Catalog = ReservationChambre; Integrated Security = True; TrustServerCertificate = True";
+        public static string ConnectionString = "Server = METRE\\SQLEXPRESS ; Database = ReservationChambre ; User Id = Lesoutils ; Password = Lesoutils; TrustServerCertificate = True;";
     }
 }
