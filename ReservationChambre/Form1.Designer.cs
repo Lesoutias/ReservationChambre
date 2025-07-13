@@ -30,6 +30,9 @@
         {
             button1 = new Button();
             btnClient = new Button();
+            button2 = new Button();
+            button3 = new Button();
+            button4 = new Button();
             SuspendLayout();
             // 
             // button1
@@ -52,11 +55,44 @@
             btnClient.UseVisualStyleBackColor = true;
             btnClient.Click += btnClient_Click;
             // 
+            // button2
+            // 
+            button2.Location = new Point(486, 73);
+            button2.Name = "button2";
+            button2.Size = new Size(157, 89);
+            button2.TabIndex = 2;
+            button2.Text = "Classe de Chambre";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            // 
+            // button3
+            // 
+            button3.Location = new Point(713, 73);
+            button3.Name = "button3";
+            button3.Size = new Size(151, 89);
+            button3.TabIndex = 3;
+            button3.Text = "Chambre";
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
+            // 
+            // button4
+            // 
+            button4.Location = new Point(940, 73);
+            button4.Name = "button4";
+            button4.Size = new Size(161, 89);
+            button4.TabIndex = 4;
+            button4.Text = "Reservation des chambres";
+            button4.UseVisualStyleBackColor = true;
+            button4.Click += button4_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1150, 450);
+            Controls.Add(button4);
+            Controls.Add(button3);
+            Controls.Add(button2);
             Controls.Add(btnClient);
             Controls.Add(button1);
             Name = "Form1";
@@ -69,5 +105,8 @@
 
         private Button button1;
         private Button btnClient;
+        private Button button2;
+        private Button button3;
+        private Button button4;
     }
 }

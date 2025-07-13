@@ -1,3 +1,4 @@
+DROP DATABASE ReservationChambre 
 CREATE DATABASE ReservationChambre
 
 GO
@@ -218,7 +219,7 @@ AS
 GO
 
 
-
+ALTER ROLE ReservationChambre ADD MEMBER Lesoutils;
 
 
 

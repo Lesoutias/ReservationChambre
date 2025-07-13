@@ -26,5 +26,23 @@ namespace ReservationChambre
             FrmClient frmClient = new FrmClient();
             frmClient.Show();
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            FrmClasse frmClasse = new FrmClasse();
+            frmClasse.Show();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Chambre frmChambre = new Chambre();
+            frmChambre.Show();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            FrmReservation frmReservation = new FrmReservation();
+            frmReservation.Show();
+        }
     }
 }

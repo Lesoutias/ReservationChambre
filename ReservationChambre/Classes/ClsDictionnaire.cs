@@ -1,10 +1,14 @@
 ﻿using Microsoft.Data.SqlClient;
+using ReservationChambre.Formulaire;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Xml;
 
 namespace ReservationChambre.Classes
 {
@@ -68,6 +72,69 @@ namespace ReservationChambre.Classes
                 command = new SqlCommand("Exec SaveCategorisation @id,@designationCategorisation", connection);
                 command.Parameters.AddWithValue("@id", cat.Id);
                 command.Parameters.AddWithValue("@designationCategorisation", cat.DesignationCat);
+                command.ExecuteNonQuery();
+                command.Dispose();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        public void SaveClasse(ClsClasse cla)
+        {
+            try
+            {
+                OpenConnection();
+                connection.Open();
+                command = new SqlCommand("Exec SaveClasse @id,@designationClasse,@prix", connection);
+                command.Parameters.AddWithValue("@id", cla.Id);
+                command.Parameters.AddWithValue("@designationClasse", cla.DesignationClasse);
+                command.Parameters.AddWithValue("@prix", cla.Prix);
+                command.ExecuteNonQuery();
+                command.Dispose();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        public void SaveChambre(ClsChambre ch)
+        {
+            try
+            {
+                OpenConnection();
+                connection.Open();
+                command = new SqlCommand("Exec SaveChambre @id,@NumChambre,@contact,@refClasse", connection);
+                command.Parameters.AddWithValue("@id", ch.Id);
+                command.Parameters.AddWithValue("@NumChambre", ch.NumChambre);
+                command.Parameters.AddWithValue("@contact", ch.Contact1);
+                command.Parameters.AddWithValue("@refClasse", ch.RefClasse);
+                command.ExecuteNonQuery();
+                command.Dispose();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        public void SaveReservation(ClsReservation res)
+        {
+            try
+            {
+                OpenConnection();
+                connection.Open();
+                command = new SqlCommand("Exec SaveReservation @id,@refClient,@refChambre,@dateEntree, @dateSortie", connection);
+                command.Parameters.AddWithValue("@id", res.Id);
+                command.Parameters.AddWithValue("@refClient", res.RefClient);
+                command.Parameters.AddWithValue("@refChambre", res.RefChambre);
+                command.Parameters.AddWithValue("@dateEntree", res.DateEntree);
+                command.Parameters.AddWithValue("@dateSortie", res.DateSortie);
                 command.ExecuteNonQuery();
                 command.Dispose();
             }
@@ -149,6 +216,25 @@ namespace ReservationChambre.Classes
             }
 
             return IdData;
+        }
+
+        public double Afficher_Prix(ClsReservation res)
+        {
+            double prix_tot = 0;
+            OpenConnection();
+            connection.Open();
+            command = new SqlCommand(@"SELECT(DAY(Res.DateSortie) - DAY(Res.DateEntree)) * Cla.prix as 'Prix Total a payer' FROM tReservation Res
+                                        INNER JOIN tChambre Ch ON Ch.id = Res.refChambre
+                                        INNER JOIN tClasse Cla ON Cla.id = Ch.refClasse
+                                        WHERE Res.id = @id", connection);
+            command.Parameters.AddWithValue("@id", res.Id);
+            prix_tot = Convert.ToDouble(command.ExecuteScalar());
+            command.Dispose();
+
+            
+            
+            return prix_tot;
+            
         }
     }
 }
